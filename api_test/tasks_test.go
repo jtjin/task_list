@@ -9,6 +9,7 @@ import (
 	"task_list/models"
 	"task_list/models/apireq"
 	"task_list/models/apires"
+	"task_list/pkg/helper"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -84,6 +85,15 @@ func TestCreateTask(t *testing.T) {
 			},
 			responseCode: ValidationFail,
 			errorMsg:     `{"code":"400400","message":"Key: 'CreateTask.Name' Error:Field validation for 'Name' failed on the 'required' tag"}`,
+		},
+		{
+			name: "create task: fail - len(name) > 250",
+			body: apireq.CreateTask{
+				Name:   helper.RandString(251),
+				Status: StatusComplete,
+			},
+			responseCode: ValidationFail,
+			errorMsg:     `{"code":"400400","message":"Key: 'CreateTask.Name' Error:Field validation for 'Name' failed on the 'max' tag"}`,
 		},
 	}
 	for _, test := range tests {
@@ -197,6 +207,16 @@ func TestUpdateTask(t *testing.T) {
 			},
 			responseCode: NotFound,
 			errorMsg:     `{"code":"400404","message":"task not exist"}`,
+		},
+		{
+			name: "update task: fail - len(name) > 250",
+			body: apireq.UpdateTask{
+				Id:     1,
+				Name:   helper.RandString(251),
+				Status: &StatusComplete,
+			},
+			responseCode: ValidationFail,
+			errorMsg:     `{"code":"400400","message":"Key: 'UpdateTask.Name' Error:Field validation for 'Name' failed on the 'max' tag"}`,
 		},
 	}
 	for _, test := range tests {
