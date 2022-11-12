@@ -30,12 +30,8 @@ jobs:
         with:
           go-version: ${{ env.GO_VERSION }}
 
-      - name: Verify task_list DB exists
-        run: mysql --host 127.0.0.1 --port 3306 -uroot -psecret -e "SHOW DATABASES LIKE 'task_list'"
-
       - name: Go test
-        env:
-          DB_HOST: mysql      
         run: |
           go mod tidy
+          go run ./cmd/seeder/main.go	
           make test
