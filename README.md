@@ -73,14 +73,17 @@ response status code 200
 ```
 
 # 專案目錄
+#### .github/workflows - 放 github action CI yml 腳本
 #### api - 放 api handler
 #### api_test - api handler test
+#### cmd/seeder - 新增假資料程式碼進入點
 #### config - 初始化配置
 #### docs - swagger file
 #### driver - 初始化 db
 #### internal - Service 實作 業務邏輯, Repository 實作與 db 交互
 #### middlware - 中間件
 #### migration - init database
+#### mock - mock files
 #### models - 定義 db schema 及用來操作 db 交互的 struct
 #### models/apireq - API_Request
 #### models/apires - API_Response
