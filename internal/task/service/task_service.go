@@ -20,19 +20,21 @@ func NewTaskService(taskRepo task.Repository) task.Service {
 	}
 }
 
-func (s *TaskService) CreateTask(req apireq.CreateTask) (res *apires.Task, err error) {
+func (s *TaskService) CreateTask(req apireq.CreateTask) (res *apires.CreateTask, err error) {
 	task := &models.Task{
 		Name:   req.Name,
-		Status: *req.Status,
+		Status: req.Status,
 	}
 	err = s.taskRepo.Insert(task)
-	res = &apires.Task{
-		Id:     task.Id,
-		Name:   task.Name,
-		Status: task.Status,
+	res = &apires.CreateTask{
+		Result: apires.Task{
+			Id:     task.Id,
+			Name:   task.Name,
+			Status: task.Status,
+		},
 	}
 	if err != nil {
-		return nil, errors.NewAppErr(500, errors.DBInsertError, "create task error.", err)
+		return nil, errors.NewAppErr(500, errors.DBInsertError, "create task error", err)
 	}
 	return res, nil
 }
@@ -40,7 +42,7 @@ func (s *TaskService) CreateTask(req apireq.CreateTask) (res *apires.Task, err e
 func (s *TaskService) ListTask() (res *apires.ListTask, err error) {
 	tasks, err := s.taskRepo.FindAll()
 	if err != nil {
-		return nil, errors.NewAppErr(500, errors.DBQueryError, "find task error.", err)
+		return nil, errors.NewAppErr(500, errors.DBQueryError, "find task error", err)
 	}
 	res = new(apires.ListTask)
 	for _, task := range tasks {
@@ -53,7 +55,7 @@ func (s *TaskService) ListTask() (res *apires.ListTask, err error) {
 	return res, nil
 }
 
-func (s *TaskService) UpdateTask(req apireq.UpdateTask) (res *apires.Task, err error) {
+func (s *TaskService) UpdateTask(req apireq.UpdateTask) (res *apires.UpdateTask, err error) {
 	// check data exists
 	task, err := s.taskRepo.FindOneById(req.Id)
 	if err != nil {
@@ -68,10 +70,12 @@ func (s *TaskService) UpdateTask(req apireq.UpdateTask) (res *apires.Task, err e
 	if err != nil {
 		return nil, errors.NewAppErr(500, errors.DBUpdateError, "update task error", err)
 	}
-	res = &apires.Task{
-		Id:     task.Id,
-		Name:   task.Name,
-		Status: task.Status,
+	res = &apires.UpdateTask{
+		Result: apires.Task{
+			Id:     task.Id,
+			Name:   task.Name,
+			Status: task.Status,
+		},
 	}
 	return res, nil
 }

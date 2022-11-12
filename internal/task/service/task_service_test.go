@@ -22,7 +22,7 @@ func TestTaskServiceCreate(t *testing.T) {
 	status := task.StatusIncomplete
 	req := apireq.CreateTask{
 		Name:   name,
-		Status: &status,
+		Status: status,
 	}
 	mockTask := &models.Task{
 		Name:   name,
@@ -33,8 +33,8 @@ func TestTaskServiceCreate(t *testing.T) {
 	// Act
 	res, err := taskService.CreateTask(req)
 	assert.Nil(t, err)
-	assert.Equal(t, name, res.Name)
-	assert.Equal(t, status, res.Status)
+	assert.Equal(t, name, res.Result.Name)
+	assert.Equal(t, status, res.Result.Status)
 }
 
 func TestTaskServiceListTask(t *testing.T) {
@@ -84,11 +84,9 @@ func TestTaskServiceUpdate(t *testing.T) {
 	statusAfter := task.StatusComplete
 
 	req := apireq.UpdateTask{
-		Id: id,
-		CreateTask: apireq.CreateTask{
-			Name:   nameAfter,
-			Status: &statusAfter,
-		},
+		Id:     id,
+		Name:   nameAfter,
+		Status: &statusAfter,
 	}
 
 	// case 1 : id exists
@@ -108,8 +106,8 @@ func TestTaskServiceUpdate(t *testing.T) {
 	// Act
 	res, err := taskService.UpdateTask(req)
 	assert.Nil(t, err)
-	assert.Equal(t, nameAfter, res.Name)
-	assert.Equal(t, statusAfter, res.Status)
+	assert.Equal(t, nameAfter, res.Result.Name)
+	assert.Equal(t, statusAfter, res.Result.Status)
 
 	// case 2 : id not exists
 	mockTaskRepo.EXPECT().FindOneById(id).Return(&models.Task{}, gorm.ErrRecordNotFound)
