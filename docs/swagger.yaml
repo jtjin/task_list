@@ -1,0 +1,180 @@
+definitions:
+  apireq.CreateTask:
+    properties:
+      name:
+        type: string
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+    required:
+    - name
+    - status
+    type: object
+  apireq.UpdateTask:
+    properties:
+      name:
+        type: string
+      status:
+        enum:
+        - 0
+        - 1
+        type: integer
+    required:
+    - name
+    - status
+    type: object
+  apires.CreateTask:
+    properties:
+      result:
+        $ref: '#/definitions/apires.Task'
+    type: object
+  apires.ListTask:
+    properties:
+      result:
+        items:
+          $ref: '#/definitions/apires.Task'
+        type: array
+    type: object
+  apires.Task:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      status:
+        type: integer
+    type: object
+  apires.UpdateTask:
+    properties:
+      result:
+        $ref: '#/definitions/apires.Task'
+    type: object
+  errors.AppErrorMsg:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /task:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request 新增 Task (status 預設為 0)
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/apireq.CreateTask'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/apires.CreateTask'
+        "400":
+          description: '{"code":"400400","message":"Wrong parameter format or invalid"}'
+          schema:
+            $ref: '#/definitions/errors.AppErrorMsg'
+        "500":
+          description: '{"code":"500002","message":"Database insert error"}'
+          schema:
+            $ref: '#/definitions/errors.AppErrorMsg'
+      summary: Create task
+      tags:
+      - Task
+  /task/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: task_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{}'
+          schema:
+            type: string
+        "400":
+          description: '{"code":"400400","message":"Wrong parameter format or invalid"}'
+          schema:
+            $ref: '#/definitions/errors.AppErrorMsg'
+        "404":
+          description: '{"code":"400404","message":"Resource not found"}'
+          schema:
+            $ref: '#/definitions/errors.AppErrorMsg'
+        "500":
+          description: '{"code":"500004","message":"Database delete error"}'
+          schema:
+            $ref: '#/definitions/errors.AppErrorMsg'
+      summary: Update task
+      tags:
+      - Task
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: task_id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Request 修改 Task
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/apireq.UpdateTask'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apires.UpdateTask'
+        "400":
+          description: '{"code":"400400","message":"Wrong parameter format or invalid"}'
+          schema:
+            $ref: '#/definitions/errors.AppErrorMsg'
+        "404":
+          description: '{"code":"400404","message":"Resource not found"}'
+          schema:
+            $ref: '#/definitions/errors.AppErrorMsg'
+        "500":
+          description: '{"code":"500003","message":"Database update error"}'
+          schema:
+            $ref: '#/definitions/errors.AppErrorMsg'
+      summary: Update task
+      tags:
+      - Task
+  /tasks:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/apires.ListTask'
+        "500":
+          description: '{"code":"500001","message":"Database query error"}'
+          schema:
+            $ref: '#/definitions/errors.AppErrorMsg'
+      summary: List task
+      tags:
+      - Task
+swagger: "2.0"
