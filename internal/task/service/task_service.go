@@ -45,6 +45,7 @@ func (s *TaskService) ListTask() (res *apires.ListTask, err error) {
 		return nil, errors.NewAppErr(500, errors.DBQueryError, "find task error", err)
 	}
 	res = new(apires.ListTask)
+	res.Result = make([]apires.Task, 0)
 	for _, task := range tasks {
 		res.Result = append(res.Result, apires.Task{
 			Id:     task.Id,

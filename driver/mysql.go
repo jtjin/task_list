@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 	"task_list/config"
+	"task_list/models"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -33,6 +34,10 @@ func InitGorm() *gorm.DB {
 				SingularTable: true,
 			},
 		})
+		if err != nil {
+			panic(err)
+		}
+		err = gormEngine.AutoMigrate(models.Task{})
 		if err != nil {
 			panic(err)
 		}
