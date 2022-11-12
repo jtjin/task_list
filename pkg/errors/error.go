@@ -9,6 +9,11 @@ type AppError struct {
 	CauseErr   error
 }
 
+type AppErrorMsg struct {
+	Code    string `json:"code"`
+	Message string `json:"message"`
+}
+
 func (e AppError) Error() string {
 	return e.Msg
 }
@@ -29,4 +34,17 @@ func NewAppErr(statusCode, code int, customMsg string, privateErr error) *AppErr
 	er.CauseErr = privateErr
 
 	return er
+}
+
+func (e *AppError) GetStatus() int {
+	return e.StatusCode
+}
+
+func (e *AppError) GetCode() int {
+	code, _ := strconv.Atoi(e.Code)
+	return code
+}
+
+func (e *AppError) GetMsg() *AppErrorMsg {
+	return &AppErrorMsg{Message: e.Msg, Code: e.Code}
 }
