@@ -22,3 +22,7 @@ seed-flush:
 .PHONY : gen-mock 
 gen-mock:
 	mockgen -source=./internal/task/repository.go -destination=./mock/task/task_repository_mock.go -package=task_mock
+
+.PHONY : build 
+build:
+	GOOS=linux GOARCH=amd64 go build -o main main.go
