@@ -2,6 +2,7 @@ definitions:
   apireq.CreateTask:
     properties:
       name:
+        maxLength: 250
         type: string
       status:
         enum:
@@ -10,11 +11,11 @@ definitions:
         type: integer
     required:
     - name
-    - status
     type: object
   apireq.UpdateTask:
     properties:
       name:
+        maxLength: 250
         type: string
       status:
         enum:
@@ -119,7 +120,7 @@ paths:
           description: '{"code":"500004","message":"Database delete error"}'
           schema:
             $ref: '#/definitions/errors.AppErrorMsg'
-      summary: Update task
+      summary: Delete task
       tags:
       - Task
     put:

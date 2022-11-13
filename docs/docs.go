@@ -135,7 +135,7 @@ var doc = `{
                 "tags": [
                     "Task"
                 ],
-                "summary": "Update task",
+                "summary": "Delete task",
                 "parameters": [
                     {
                         "type": "integer",
@@ -206,12 +206,12 @@ var doc = `{
         "apireq.CreateTask": {
             "type": "object",
             "required": [
-                "name",
-                "status"
+                "name"
             ],
             "properties": {
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 250
                 },
                 "status": {
                     "type": "integer",
@@ -230,7 +230,8 @@ var doc = `{
             ],
             "properties": {
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 250
                 },
                 "status": {
                     "type": "integer",
