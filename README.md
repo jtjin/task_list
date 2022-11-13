@@ -53,7 +53,7 @@ http://ec2-54-179-180-232.ap-southeast-1.compute.amazonaws.com:8000/swagger/inde
    - Success Response: 200
       | Field | Type | Description |
       | :---: | :---: | :--- |
-      | result | Array | Array of `Task Object`. |
+      | result | Array | Array of `Task Object` |
    - Success Response Example:
       ```json
       {
@@ -79,7 +79,7 @@ http://ec2-54-179-180-232.ap-southeast-1.compute.amazonaws.com:8000/swagger/inde
       | Field | Type | Description |
       | :---: | :---: | :---: |
       | name (Required) | String | name of task |
-      | name (Optional) | Number | status of task, only accept 0(incomplete) or 1(complete) |
+      | status (Optional) | Number | status of task, only accept 0(incomplete) or 1(complete) |
    - Request Body Example:
       ```json
       {
