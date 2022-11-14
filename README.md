@@ -38,7 +38,7 @@ http://ec2-54-179-180-232.ap-southeast-1.compute.amazonaws.com:8000/swagger/inde
 - MySQL
 
 ### Tools
-- Version Control: Git, GitHub
+- Version Control: Git, Gitub
 - CI / CD: Github Actions
 
 ### Others
