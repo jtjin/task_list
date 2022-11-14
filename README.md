@@ -24,7 +24,7 @@ http://ec2-54-179-180-232.ap-southeast-1.compute.amazonaws.com:8000/swagger/inde
 
 # Technologies
 ### Backend
-- Languange: GO 1.9.x
+- Languange: GO 1.19.x
 - Web Framework: [gin 1.8.1](https://github.com/gin-gonic/gin)
 - Object Relational Mapping: [gorm 1.24.1](https://github.com/go-gorm/gorm)
 - Dependency Injection: [wire 0.5.0](https://github.com/google/wire)
