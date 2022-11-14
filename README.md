@@ -42,7 +42,7 @@ http://ec2-54-179-180-232.ap-southeast-1.compute.amazonaws.com:8000/swagger/inde
 - CI / CD: Github Actions
 
 ### Others
-- Design Pattern: Clean Archtectur
+- Design Pattern: Clean Architecture
 
 # API Routes
 
