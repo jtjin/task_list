@@ -15,13 +15,6 @@ You can run this app using 2 methods:
     1. Clone this repo.
     2. Run `docker-compose up -d` and wait for app to run on `localhost:8000`
 
-### Demo
-```
-curl http://ec2-54-179-180-232.ap-southeast-1.compute.amazonaws.com:8000/tasks
-
-http://ec2-54-179-180-232.ap-southeast-1.compute.amazonaws.com:8000/swagger/index.html
-```
-
 # Technologies
 ### Backend
 - Languange: GO 1.19.x
